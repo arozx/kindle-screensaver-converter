@@ -9,7 +9,7 @@ def print_title():
 ╦╔═┬┌┐┌┌┬┐┬  ┌─┐  ╔═╗┌─┐┬─┐┌─┐┌─┐┌┐┌┌─┐┌─┐┬  ┬┌─┐┬─┐  ╔═╗┌─┐┌┐┌┬  ┬┌─┐┬─┐┌┬┐┌─┐┬─┐
 ╠╩╗││││ │││  ├┤   ╚═╗│  ├┬┘├┤ ├┤ │││└─┐├─┤└┐┌┘├┤ ├┬┘  ║  │ ││││└┐┌┘├┤ ├┬┘ │ ├┤ ├┬┘
 ╩ ╩┴┘└┘─┴┘┴─┘└─┘  ╚═╝└─┘┴└─└─┘└─┘┘└┘└─┘┴ ┴ └┘ └─┘┴└─  ╚═╝└─┘┘└┘ └┘ └─┘┴└─ ┴ └─┘┴└─
-
+made by neura - https://github.com/neura-neura/kindle-screensaver-converter
     """)
 
 def enhance_contrast_grayscale(image):
