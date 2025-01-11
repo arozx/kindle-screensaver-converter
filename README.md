@@ -16,7 +16,7 @@ This Python script converts images into screensavers compatible with Kindle devi
 ## Requirements
 
 - Python 3.x
-- [Pillow](https://python-pillow.org/) (Python Imaging Library fork)
+- [Pillow](https://pypi.org/project/pillow/) (Python Imaging Library fork)
 
 ## Installation
 
@@ -77,6 +77,9 @@ The converted images will appear in a folder named `converted_screensavers` in t
 - Ensure that the `PUT YOUR IMAGES HERE` folder exists and contains valid image files.
 - Verify Python and Pillow installation.
 - Ensure you have read/write permissions in the directory.
+> Note that the PNG format always saves grayscale images with 8 bits per pixel, regardless of the simulated bit depth applied during processing. While the visual effect of reducing the grayscale levels (e.g., to 1, 2, or 4 bits) is evident in the resulting images, the file properties will consistently indicate an 8-bit depth. This is because PNG does not natively support lower bit depths for grayscale images; the quantization we apply is effectively a simulation. For example, specifying 1 bit results in only 2 grayscale levels (black and white), but the image is still stored as 8 bits per pixel. Similarly, 2-bit quantization produces 4 grayscale levels, and 4-bit quantization yields 16 levels, yet both are saved in an 8-bit format.
+
+
 
 ## License
 
