@@ -1,0 +1,78 @@
+import os
+from PIL import Image, ImageEnhance
+
+# ASCII Art Title
+def print_title():
+    print("""
+        
+╦╔═┬┌┐┌┌┬┐┬  ┌─┐  ╔═╗┌─┐┬─┐┌─┐┌─┐┌┐┌┌─┐┌─┐┬  ┬┌─┐┬─┐  ╔═╗┌─┐┌┐┌┬  ┬┌─┐┬─┐┌┬┐┌─┐┬─┐
+╠╩╗││││ │││  ├┤   ╚═╗│  ├┬┘├┤ ├┤ │││└─┐├─┤└┐┌┘├┤ ├┬┘  ║  │ ││││└┐┌┘├┤ ├┬┘ │ ├┤ ├┬┘
+╩ ╩┴┘└┘─┴┘┴─┘└─┘  ╚═╝└─┘┴└─└─┘└─┘┘└┘└─┘┴ ┴ └┘ └─┘┴└─  ╚═╝└─┘┘└┘ └┘ └─┘┴└─ ┴ └─┘┴└─
+
+    """)
+
+def enhance_contrast_grayscale(image):
+    image = image.convert("L")  # Convert to grayscale
+    enhancer = ImageEnhance.Contrast(image)
+    return enhancer.enhance(2.0)  # Enhance contrast
+
+def get_most_prominent_frame(image):
+    # Detect the most "prominent" region to keep based on brightness
+    grayscale_image = image.convert("L")
+    histogram = grayscale_image.histogram()
+    brightness = sum(i * histogram[i] for i in range(256)) / sum(histogram)
+
+    # Placeholder logic for determining a "prominent" frame, can be improved
+    # For now, we return the center cropped frame as fallback
+    return grayscale_image.crop((
+        (grayscale_image.width - 100) // 2,
+        (grayscale_image.height - 100) // 2,
+        (grayscale_image.width + 100) // 2,
+        (grayscale_image.height + 100) // 2,
+    ))
+
+def process_images(height, width, dpi_x, dpi_y, bit_depth):
+    input_folder = "PUT YOUR IMAGES HERE"
+    output_folder = "converted_screensavers"
+    os.makedirs(output_folder, exist_ok=True)
+
+    images = [f for f in os.listdir(input_folder) if f.lower().endswith((".jpg", ".jpeg", ".png"))]
+
+    for idx, image_name in enumerate(images):
+        image_path = os.path.join(input_folder, image_name)
+        with Image.open(image_path) as img:
+            # Resize and crop intelligently
+            img = img.convert("RGB")
+            scale_factor = max(width / img.width, height / img.height)
+            new_width = int(img.width * scale_factor)
+            new_height = int(img.height * scale_factor)
+            img = img.resize((new_width, new_height), Image.LANCZOS)
+
+            # Get prominent frame
+            left = (img.width - width) // 2
+            top = (img.height - height) // 2
+            right = left + width
+            bottom = top + height
+            img = img.crop((left, top, right, bottom))
+
+            # Apply enhanced grayscale if needed
+            img = enhance_contrast_grayscale(img)
+
+            # Save converted image
+            output_name = f"bg_ss{str(idx + 1).zfill(2)}.png"
+            output_path = os.path.join(output_folder, output_name)
+            img.save(output_path, "PNG", dpi=(dpi_x, dpi_y))
+
+    print(f"\nConversion complete! Converted images are in: {output_folder}")
+
+if __name__ == "__main__":
+    print_title()
+    print("Processing images from 'PUT YOUR IMAGES HERE' folder...")
+
+    kindle_height = int(input("Enter target height (pixels): "))
+    kindle_width = int(input("Enter target width (pixels): "))
+    kindle_dpi_x = int(input("Enter horizontal resolution (DPI): "))
+    kindle_dpi_y = int(input("Enter vertical resolution (DPI): "))
+    kindle_bit_depth = int(input("Enter bit depth: "))
+
+    process_images(kindle_height, kindle_width, kindle_dpi_x, kindle_dpi_y, kindle_bit_depth)
