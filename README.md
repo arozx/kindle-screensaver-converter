@@ -2,6 +2,8 @@
 
 This Python script converts images into screensavers compatible with Kindle devices (in order to replace the default ones if you know how or use them as screensavers in KOReader). It allows you to set dimensions, resolution, and bit depth while applying smart cropping and grayscale adjustments to highlight the most prominent parts of the image.
 
+> There is a new version with GUI [here](https://github.com/neura-neura/kindle-screensaver-converter-gui)
+
 ## Features
 
 - **Dimension Control:** Specify the target height and width in pixels.
