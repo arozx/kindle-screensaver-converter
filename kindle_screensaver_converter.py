@@ -1,3 +1,4 @@
+import argparse
 import os
 from PIL import Image, ImageEnhance
 import numpy as np
@@ -86,33 +87,37 @@ def process_images(height, width, dpi_x, dpi_y, bit_depth):
 
     print(f"\nConversion complete! Converted images are in: {output_folder}")
 
+
 if __name__ == "__main__":
     print_title()
     print("Processing images from the 'input_images' folder...")
 
-    kindle_height = int(input("Enter target height (pixels): "))
-    while kindle_height <= 0:
-        print("Error: target height must be a positive number and > 0"))
-        kindle_height = int(input("Enter target height (pixels): "))
+    parser = argparse.ArgumentParser(description="Convert images into Kindle-ready screensavers.")
+    parser.add_argument("--height", type=int, help="Target height in pixels")
+    parser.add_argument("--width", type=int, help="Target width in pixels")
+    parser.add_argument("--dpi-x", type=int, help="Horizontal DPI")
+    parser.add_argument("--dpi-y", type=int, help="Vertical DPI")
+    parser.add_argument("--bit-depth", type=int, help="Bit depth (e.g., 8)")
 
-    kindle_width = int(input("Enter target width (pixels): "))
-    while kindle_width <= 0:
-        print("Error: target width must be a positive number and > 0")
-        kindle_width = int(input("Enter target width (pixels): "))
+    args = parser.parse_args()
 
-    kindle_dpi_x = int(input("Enter horizontal resolution (DPI): "))
-    while kindle_dpi_x <= 0:
-        print("Error: target DPI (x) must be a positive number and > 0")
-        kindle_dpi_x = int(input("Enter horizontal resolution (DPI): "))
+    def get_validated_input(prompt, arg_value):
+        if arg_value is not None and arg_value > 0:
+            return arg_value
+        value = -1
+        while value <= 0:
+            try:
+                value = int(input(prompt))
+                if value <= 0:
+                    print("Error: must be a positive number and > 0")
+            except ValueError:
+                print("Error: enter a valid number")
+        return value
 
-    kindle_dpi_y = int(input("Enter vertical resolution (DPI): "))
-    while kindle_dpi_y <= 0:
-        print("Error: target DPI (y) must be a positive number and > 0")
-        kindle_dpi_y = int(input("Enter vertical resolution (DPI): "))
-
-    kindle_bit_depth = int(input("Enter bit depth: "))
-    while kindle_bit_depth <= 0:
-        print("Error: bit depth must be a positive number and > 0")
-        kindle_bit_depth = int(input("Enter bit depth: "))
+    kindle_height = get_validated_input("Enter target height (pixels): ", args.height)
+    kindle_width = get_validated_input("Enter target width (pixels): ", args.width)
+    kindle_dpi_x = get_validated_input("Enter horizontal resolution (DPI): ", args.dpi_x)
+    kindle_dpi_y = get_validated_input("Enter vertical resolution (DPI): ", args.dpi_y)
+    kindle_bit_depth = get_validated_input("Enter bit depth: ", args.bit_depth)
 
     process_images(kindle_height, kindle_width, kindle_dpi_x, kindle_dpi_y, kindle_bit_depth)
