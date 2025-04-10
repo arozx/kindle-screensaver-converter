@@ -20,12 +20,13 @@ This Python script converts images into screensavers compatible with Kindle devi
 - **Scaling Before Cropping:** Ensures the maximum part of the image is preserved by scaling before cropping.
 - **Grayscale with Contrast Enhancement:** Applies grayscale with enhanced contrast for better visual impact.
 - **Output Format:** Saves images in PNG format.
-- **Custom Folder Handling:** Processes images from a folder named `PUT YOUR IMAGES HERE` and saves results in a `converted_screensavers` folder in the root directory.
+- **Custom Folder Handling:** Processes images from a folder named `input_images` and saves results in a `converted_screensavers` folder in the root directory.
 
 ## Requirements
 
 - Python 3.x
 - [Pillow](https://pypi.org/project/pillow/) (Python Imaging Library fork)
+- [Numpy](https://pypi.org/project/numpy/) (Python General Purpouse / math Library)
 
 ## Installation
 
@@ -55,7 +56,7 @@ This Python script converts images into screensavers compatible with Kindle devi
 
 ## Usage
 
-1. Place your images in a folder named `PUT YOUR IMAGES HERE`.
+1. Place your images in a folder named `input_images`.
 
 2. Run the script:
    ```bash
@@ -71,7 +72,7 @@ This Python script converts images into screensavers compatible with Kindle devi
 
 ## Example
 
-Suppose you have a folder `PUT YOUR IMAGES HERE` containing images you want to convert. Run the script and enter the following when prompted:
+Suppose you have a folder `input_images` containing images you want to convert. Run the script and enter the following when prompted:
 
 - Target Height: 800 pixels
 - Target Width: 600 pixels
@@ -83,8 +84,8 @@ The converted images will appear in a folder named `converted_screensavers` in t
 
 ## Troubleshooting
 
-- Ensure that the `PUT YOUR IMAGES HERE` folder exists and contains valid image files.
-- Verify Python and Pillow installation.
+- Ensure that the `input_images` folder exists and contains valid image files.
+- Verify Python, Pillow and Numpy installation.
 - Ensure you have read/write permissions in the directory.
 > Note that the PNG format always saves grayscale images with 8 bits per pixel, regardless of the simulated bit depth applied during processing. While the visual effect of reducing the grayscale levels (e.g., to 1, 2, or 4 bits) is evident in the resulting images, the file properties will consistently indicate an 8-bit depth. This is because PNG does not natively support lower bit depths for grayscale images; the quantization we apply is effectively a simulation. For example, specifying 1 bit results in only 2 grayscale levels (black and white), but the image is still stored as 8 bits per pixel. Similarly, 2-bit quantization produces 4 grayscale levels, and 4-bit quantization yields 16 levels, yet both are saved in an 8-bit format.
 
