@@ -1,2 +1,2 @@
-Pillow
-numpy
+Pillow >= 8.0.0
+numpy >= 1.19.0
