@@ -50,7 +50,7 @@ def get_most_prominent_frame(image):
     ))
 
 def process_images(height, width, dpi_x, dpi_y, bit_depth):
-    input_folder = "PUT YOUR IMAGES HERE"
+    input_folder = "input_images"
     output_folder = "converted_screensavers"
     os.makedirs(output_folder, exist_ok=True)
 
@@ -78,7 +78,7 @@ def process_images(height, width, dpi_x, dpi_y, bit_depth):
             img = adjust_bit_depth(img, bit_depth)
 
             # Save converted image
-            output_name = f"bg_ss{str(idx + 1).zfill(2)}.png"
+            output_name = f"bg_ss{str(idx + 1).zfill(2)}_{image_name}.png"
             output_path = os.path.join(output_folder, output_name)
             img.save(output_path, "PNG", dpi=(dpi_x, dpi_y))
 
