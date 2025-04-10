@@ -88,12 +88,31 @@ def process_images(height, width, dpi_x, dpi_y, bit_depth):
 
 if __name__ == "__main__":
     print_title()
-    print("Processing images from 'PUT YOUR IMAGES HERE' folder...")
+    print("Processing images from the 'input_images' folder...")
 
     kindle_height = int(input("Enter target height (pixels): "))
+    while kindle_height <= 0:
+        print("Error: target height must be a positive number and > 0"))
+        kindle_height = int(input("Enter target height (pixels): "))
+
     kindle_width = int(input("Enter target width (pixels): "))
+    while kindle_width <= 0:
+        print("Error: target width must be a positive number and > 0")
+        kindle_width = int(input("Enter target width (pixels): "))
+
     kindle_dpi_x = int(input("Enter horizontal resolution (DPI): "))
+    while kindle_dpi_x <= 0:
+        print("Error: target DPI (x) must be a positive number and > 0")
+        kindle_dpi_x = int(input("Enter horizontal resolution (DPI): "))
+
     kindle_dpi_y = int(input("Enter vertical resolution (DPI): "))
+    while kindle_dpi_y <= 0:
+        print("Error: target DPI (y) must be a positive number and > 0")
+        kindle_dpi_y = int(input("Enter vertical resolution (DPI): "))
+
     kindle_bit_depth = int(input("Enter bit depth: "))
+    while kindle_bit_depth <= 0:
+        print("Error: bit depth must be a positive number and > 0")
+        kindle_bit_depth = int(input("Enter bit depth: "))
 
     process_images(kindle_height, kindle_width, kindle_dpi_x, kindle_dpi_y, kindle_bit_depth)
